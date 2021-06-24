@@ -3,10 +3,14 @@ const connectDB = require('./config/db');
 const { seedData } = require('./config/seeds/seeder.seed');
 const colors = require('colors');
 
-// connect to DB
-connectDB();
+const connect = async() => {
+    // connect to DB
+    await connectDB();
 
-seedData();
+    await seedData();
+}
+
+    connect();
 
 const PORT = process.env.PORT || 5001
 

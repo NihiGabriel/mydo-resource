@@ -1,7 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse.util');
 const jwt = require('jsonwebtoken');
 
-const { asyncHandler, protect: AuthCheck, Authorize } = require('@nijisog/todo_common');
+const { asyncHandler, protect: AuthCheck, authorize: Authorize } = require('@nijisog/todo_common');
 
 
 // this will protects all routes in the app, if anybody tried to access any route it will push the common code to check the token of the person. 
@@ -13,9 +13,10 @@ exports.protect = asyncHandler(async (req, res, next) => { // protect here is to
         
         let authCheck;
         await AuthCheck(req, process.env.JWT_SECRET).then((resp) => { // call protect function from the common code...remember it's promise that is why we use .then 
-            authCheck = resp || null;                                   // the AuthCheck function takes in req and secret
-        });
+             authCheck = resp || null;                                   // the AuthCheck function takes in req and secret
+        })
 
+    
         // make sure token exists
         if(authCheck === null){
             return next(new ErrorResponse('Invalid token', 401, ['User not authorize to access this route']))
@@ -30,7 +31,7 @@ exports.protect = asyncHandler(async (req, res, next) => { // protect here is to
         }
 
     } catch (err) {
-        console.log(error);
+        console.log(err);
         return next(new ErrorResponse('Error', 401, ['user is not authorize to access this route'])); // it takes in 3params which is message, statusCode and array of erros
     }
 });

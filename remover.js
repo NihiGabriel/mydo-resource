@@ -21,30 +21,32 @@ const options = {
     useFindAndModify: false,
     useUnifiedTopology: true,
 }
-
-if(process.env.NODE_ENV === 'test'){
-    mongoose.connect(process.env.MONGODB_TEST_URI, options);
-}
-
-if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production'){
-    mongoose.connect(process.env.MONGODB_URI, options)
-}
-
-const deleteData = async () => {
-    try {
-
-        await Country.deleteMany();
-        await Language.deleteMany();
-        await Payment.deleteMany();
-
-        console.log('Data destroyed successfully...'.red.inverse);
-        process.exit();
-
-    } catch (err) {
-        console.log(err)
+    const connectDB = () => {
+        if(process.env.NODE_ENV === 'test'){
+            mongoose.connect(process.env.MONGODB_TEST_URI, options);
+        }
+        
+        if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production'){
+            mongoose.connect(process.env.MONGODB_URI, options)
+        }
+        
     }
-}
 
-if(process.argv[2] === '-d'){
-    deleteData();
-}
+    const deleteData = async () => {
+        try {
+            await connectDB();
+            await Country.deleteMany();
+            await Language.deleteMany();
+            await Payment.deleteMany();
+
+            console.log('Data destroyed successfully...'.red.inverse);
+            process.exit();
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    if(process.argv[2] === '-d'){
+        deleteData();
+    }

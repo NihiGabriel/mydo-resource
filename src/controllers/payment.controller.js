@@ -46,8 +46,8 @@ exports.createPayment = asyncHandler(async (req, res, next) => {
    // if(!icon){
    //     return next(new ErrorResponse('Error', 400, ['Payment icon is required']))
    // }
- 
-   const payment = await Payment.create({
+  
+   const payment = await Payment.create({       
        name,
        type
    });
