@@ -7,10 +7,10 @@ const {
 } = require('../../../controllers/language.controller');
  
 const advancedResults = require('../../../middleware/advancedResults.mw');
+const Language = require('../../../models/Language.model');
  
 // router
 const router = express.Router({ mergeParams: true });
-const Language = require('../../../models/Language.model');
  
 router.get('/', advancedResults(Language), getLanguages);
 router.get('/:id',  getLanguage);

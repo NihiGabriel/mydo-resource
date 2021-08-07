@@ -15,7 +15,7 @@ exports.getCountries = asyncHandler(async (req, res, next) => {
 // @route   GET /api/resource/v1/countries/:id
 // access   Public
 exports.getCountry = asyncHandler(async (req, res, next) => {
-	let reqId = req.params.id
+	let reqId = req.params.id 
     let country;
 
 	if(strIncludesEs6(reqId, '+')){ // find a country by phoneCode
@@ -23,13 +23,13 @@ exports.getCountry = asyncHandler(async (req, res, next) => {
 	}
 
 	if(mongoose.Types.ObjectId.isValid(reqId)){ // find by valid mongoose ID
-		country = await Country.findById(reqId);
+		country = await Country.findById(reqId); 
 	}  
     if(!country){
         return next(new ErrorResponse('Cannot find country', 404, `[Cannot find country [${req.params.id}]]`))
     }
 
-    res.status(200).json({
+    res.status(200).json({  
         error: false,
         errors: [],
         data: country,
