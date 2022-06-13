@@ -4,14 +4,14 @@ const { asyncHandler, strIncludesEs6, strToArrayEs6 } = require('@nijisog/todo_c
 const Language = require('../models/Language.model');
 
 // @desc    Get All Languages
-// @route   GET /api/identity/v1/languages
+// @route   GET /api/resources/v1/languages
 // access   Public
 exports.getLanguages = asyncHandler(async (req, res, next) => {
     res.status(200).json(res.advancedResults);
 })
 
 // @desc    Get A Language
-// @route   GET /api/identity/v1/language/:id
+// @route   GET /api/resources/v1/language/:id
 // access   Public
 exports.getLanguage = asyncHandler(async (req, res, next) => {
     const lang = await Language.findById(req.params.id)

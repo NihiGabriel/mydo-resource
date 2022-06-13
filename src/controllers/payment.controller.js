@@ -32,7 +32,7 @@ exports.getPayment = asyncHandler(async (req, res, next) => {
        errors: [],
        data: payment,
        message: `successful`,
-       status: 200,
+       status: 200
    });
 });
  
